@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-void text-ink font-body antialiased;
+  }
+  ::selection {
+    @apply bg-corail/30 text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid #ff6b45;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Le motif signature : un rail de perforations de pellicule,
+     utilisé comme séparateur structurel (jamais comme simple décor). */
+  .sprocket-divider {
+    @apply h-[10px] bg-sprocket-rail bg-repeat-x;
+    background-size: 18px 2px;
+    background-position: center;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-rail px-2.5 py-1 text-[11px] font-mono uppercase tracking-chip text-ink-muted;
+  }
+
+  .poster-card {
+    @apply relative overflow-hidden rounded-md bg-surface ring-1 ring-rail transition-transform duration-300;
+  }
+  .poster-card:hover {
+    transform: translateY(-4px);
+  }
+}
