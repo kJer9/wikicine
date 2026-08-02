@@ -20,6 +20,16 @@ export default async function Navbar() {
           </span>
         )}
 
+         {isMockMode && (
+          <span className="chip border-red-500/40 !text-red-400 text-[10px]">
+            DEBUG · URL: {process.env.NEXT_PUBLIC_SUPABASE_URL ? "OK" : "MANQUANT"} · CLÉ: {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? `OK (${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.length} car.)` : "MANQUANT"}
+          </span>
+        )}
+
+
+
+      
+
         <nav className="hidden items-center gap-5 text-sm text-ink-muted md:flex">
           <Link href="/films" className="hover:text-ink">Films</Link>
           <Link href="/games" className="hover:text-ink">Jeux</Link>
