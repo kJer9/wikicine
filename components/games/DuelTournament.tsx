@@ -168,24 +168,38 @@ export default function DuelTournament({ subjects, type, size, isAuthenticated }
         </p>
       )}
 
-      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+      <div className="relative grid grid-cols-2 gap-1 overflow-hidden rounded-lg">
         {[a, b].map((s, i) => (
           <button
             key={s.id}
             onClick={() => vote(s, i === 0 ? b : a)}
             disabled={voting}
-            className="group rounded-lg border border-rail bg-surface p-6 text-center transition-colors hover:border-corail disabled:opacity-60"
+            className="group relative h-[48vh] min-h-[280px] overflow-hidden sm:h-[65vh] sm:min-h-[420px]"
           >
-            {s.image_url && (
-              <div className="relative mx-auto mb-4 h-40 w-32 overflow-hidden rounded ring-1 ring-rail">
-                <Image src={s.image_url} alt={s.name} fill className="object-cover" />
-              </div>
+            {s.image_url ? (
+              <Image
+                src={s.image_url}
+                alt={s.name}
+                fill
+                sizes="50vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-elevated" />
             )}
-            <p className="font-display text-2xl tracking-poster text-ink group-hover:text-corail">{s.name}</p>
-            <p className="mt-1 font-mono text-xs text-ink-faint">ELO {Math.round(ratings[s.id] ?? 1200)}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-void via-void/10 to-transparent transition-colors group-hover:from-corail/40" />
+            <div className="absolute inset-x-0 bottom-0 p-4 text-center sm:p-6">
+              <p className="font-display text-2xl leading-none tracking-poster text-white drop-shadow-lg sm:text-4xl">
+                {s.name}
+              </p>
+              <p className="mt-2 font-mono text-xs text-white/70">ELO {Math.round(ratings[s.id] ?? 1200)}</p>
+            </div>
           </button>
         ))}
-        <p className="hidden text-center font-display text-2xl text-ink-faint sm:block">VS</p>
+
+        <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-corail font-display text-base text-void shadow-lg sm:h-16 sm:w-16 sm:text-xl">
+          VS
+        </div>
       </div>
 
       <p className="mt-8 text-center font-mono text-xs uppercase tracking-chip text-ink-faint">
